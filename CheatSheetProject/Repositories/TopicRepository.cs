@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Data.SQLite;
+using System.Xml.Linq;
 using CheatSheetProject.Models;
 
 namespace CheatSheetProject.Repositories
@@ -20,7 +21,7 @@ namespace CheatSheetProject.Repositories
         {
             var allTopics = new List<Topic>();
 
-            var sqlite_datareader = SQLTableManagement.ReadData("Topic");
+            var sqlite_datareader = SQLTableManagement.ReadData("Topic", null);
             while (sqlite_datareader.Read())
             {
                 string id = sqlite_datareader.GetString(0);
@@ -31,7 +32,27 @@ namespace CheatSheetProject.Repositories
                     name = name
                 });
             }
+            SQLTableManagement.GetSQLiteConnection().Close();
             return allTopics;
+        }
+
+        public static Topic? GetTopic(string id)
+        {
+            SQLTableManagement.GetSQLiteConnection().Open();
+            var clause = $"id = \"{id}\"";
+            var sqlite_datareader = SQLTableManagement.ReadData("Topic", clause);
+            while (sqlite_datareader.Read())
+            {
+                string name = sqlite_datareader.GetString(1);
+                SQLTableManagement.GetSQLiteConnection().Close();
+                return new Topic
+                {
+                    id = id,
+                    name = name
+                };
+            }
+            SQLTableManagement.GetSQLiteConnection().Close();
+            return null;
         }
     }
 }

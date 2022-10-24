@@ -26,18 +26,22 @@ namespace CheatSheetProject.Repositories
             sqlite_cmd.ExecuteNonQuery();
         }
 
-        public static SQLiteDataReader ReadData(string tableName)
+        public static SQLiteDataReader ReadData(string tableName, string? clause)
         {
-            SQLiteDataReader sqlite_datareader;
             SQLiteCommand sqlite_cmd;
             sqlite_cmd = GetSQLiteConnection().CreateCommand();
-            sqlite_cmd.CommandText = $"SELECT * FROM {tableName}";
-
+            if(clause == null)
+            {
+                sqlite_cmd.CommandText = $"SELECT * FROM {tableName}";
+            } else
+            {
+                sqlite_cmd.CommandText = $"SELECT * FROM {tableName} WHERE {clause}";
+            }
+            
             return sqlite_cmd.ExecuteReader();
-            //GetSQLiteConnection().Close();
         }
 
-        private static SQLiteConnection GetSQLiteConnection()
+        public static SQLiteConnection GetSQLiteConnection()
         {
             if(conn == null)
             {

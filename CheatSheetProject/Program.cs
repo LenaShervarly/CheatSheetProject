@@ -25,10 +25,12 @@ app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
 
-CheatSheetProject.Repositories.Migrations.run();
+//CheatSheetProject.Repositories.Migrations.run();
 CheatSheetProject.Repositories.TopicRepository.AddNewTopic("While");
 CheatSheetProject.Repositories.TopicRepository.AddNewTopic("If statement");
 var topics = CheatSheetProject.Repositories.TopicRepository.GetAllTopics();
+var firstTopic = CheatSheetProject.Repositories.TopicRepository.GetTopic(topics[0].id);
+Console.WriteLine(firstTopic);
 
 app.Run();
 
