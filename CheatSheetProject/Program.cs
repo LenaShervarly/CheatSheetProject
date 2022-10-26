@@ -25,13 +25,21 @@ app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
 
-//CheatSheetProject.Repositories.Migrations.run();
-CheatSheetProject.Repositories.TopicRepository.AddNewTopic("While");
-CheatSheetProject.Repositories.TopicRepository.AddNewTopic("If statement");
+/*CheatSheetProject.Repositories.Migrations.run();
+//CheatSheetProject.Repositories.TopicRepository.AddNewTopic("While");
+//CheatSheetProject.Repositories.TopicRepository.AddNewTopic("If statement");
 var topics = CheatSheetProject.Repositories.TopicRepository.GetAllTopics();
 var firstTopic = CheatSheetProject.Repositories.TopicRepository.GetTopic(topics[0].id);
 Console.WriteLine(firstTopic);
+if(firstTopic != null)
+{
+    CheatSheetProject.Repositories.TopicRepository.UpdateNameById(firstTopic.id, "Cheat Sheet Project");
+}
 
+firstTopic = CheatSheetProject.Repositories.TopicRepository.GetTopic(topics[0].id);
+Console.WriteLine(firstTopic);
+*/
+CheatSheetProject.Repositories.TopicRepository.DeleteTopicByName("If statement");
 app.Run();
 
 

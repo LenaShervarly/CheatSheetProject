@@ -47,7 +47,25 @@ namespace CheatSheetProject.Repositories
             {
                 conn = SqliteConnect.CreateConnection();
             }
+            if(conn.State == System.Data.ConnectionState.Closed)
+            {
+                conn.Open();
+            }
             return conn;
+        }
+
+        public static void UpdatetData(string tableName, string setValues, string clause)
+        {
+            SQLiteCommand sqlite_cmd = GetSQLiteConnection().CreateCommand();
+            sqlite_cmd.CommandText = $"UPDATE {tableName} SET {setValues} WHERE {clause}; ";
+            sqlite_cmd.ExecuteNonQuery();
+        }
+
+        public static void DeletetData(string tableName, string clause)
+        {
+            SQLiteCommand sqlite_cmd = GetSQLiteConnection().CreateCommand();
+            sqlite_cmd.CommandText = $"DELETE from {tableName} WHERE {clause}; ";
+            sqlite_cmd.ExecuteNonQuery();
         }
     }
 }
