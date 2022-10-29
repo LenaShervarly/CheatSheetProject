@@ -67,6 +67,12 @@ namespace CheatSheetProject.Repositories
             sqlite_cmd.CommandText = $"DELETE from {tableName} WHERE {clause}; ";
             sqlite_cmd.ExecuteNonQuery();
         }
+
+        public static void CloseConnections(SQLiteDataReader sqlite_datareader)
+        {
+            sqlite_datareader.Close();
+            SQLTableManagement.GetSQLiteConnection().Close();
+        }
     }
 }
 

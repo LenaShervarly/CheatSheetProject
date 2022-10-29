@@ -8,7 +8,9 @@ namespace CheatSheetProject.Models
 
         public string linkAddress { get; set; }
 
-        public int order { get; set; }
+        public int? linkOrder { get; set; }
+
+        public string cheatSheetItemId { get; set; }
 
         public UsefulLink()
         {

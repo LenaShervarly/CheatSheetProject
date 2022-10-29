@@ -33,7 +33,7 @@ namespace CheatSheetProject.Repositories
                     name = name
                 });
             }
-            CloseConnections(sqlite_datareader);
+            SQLTableManagement.CloseConnections(sqlite_datareader);
             return allTopics;
         }
 
@@ -44,7 +44,7 @@ namespace CheatSheetProject.Repositories
             while (sqlite_datareader.Read())
             {
                 string name = sqlite_datareader.GetString(1);
-                CloseConnections(sqlite_datareader);
+                SQLTableManagement.CloseConnections(sqlite_datareader);
                 return new Topic
                 {
                     id = id,
@@ -52,7 +52,7 @@ namespace CheatSheetProject.Repositories
                 };
             }
 
-            CloseConnections(sqlite_datareader);
+            SQLTableManagement.CloseConnections(sqlite_datareader);
             return null;
         }
 
@@ -61,12 +61,6 @@ namespace CheatSheetProject.Repositories
             var clause = $"id = \"{id}\"";
             var setName = $"name = \"{name}\"";
             SQLTableManagement.UpdatetData(topic, setName, clause);
-        }
-
-        private static void CloseConnections(SQLiteDataReader sqlite_datareader)
-        {
-            sqlite_datareader.Close();
-            SQLTableManagement.GetSQLiteConnection().Close();
         }
 
         public static void DeleteTopicById(string id)
