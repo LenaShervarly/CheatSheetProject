@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Data.SQLite;
+using System.Linq;
 using System.Xml.Linq;
 using CheatSheetProject.Models;
 
@@ -54,6 +55,81 @@ namespace CheatSheetProject.Repositories
 
             SQLTableManagement.CloseConnections(sqlite_datareader);
             return null;
+        }
+
+        public static Topic? GetTopicWithAllItems(string id)
+        {
+            var statement = "SELECT Topic.Id AS TopicId, Topic.Name, CheetSheetItem.Id AS ItemId, CheetSheetItem.Name, CheetSheetItem.CodeSnippet, " +
+                "CheetSheetItem.AdditionalInfo, UsefulLink.Id AS LinkId, UsefulLink.LinkAddress, UsefulLink.LinkOrder" +
+                "\nFROM Topic\nLEFT JOIN CheetSheetItem ON Topic.Id = CheetSheetItem.TopicId" +
+                "\nLEFT JOIN UsefulLink ON CheetSheetItem.Id = UsefulLink.CheetSheetItemID " +
+                $"WHERE Topic.Id = \"{id}\";";
+            var sqlite_datareader = SQLTableManagement.ReadCusomData(statement);
+            Topic topic = null;
+            var cheatSheetItems = new LinkedList<CheetSheetItem>();
+            while (sqlite_datareader.Read())
+            {
+                var topicId = sqlite_datareader.GetString(0);
+                var topicName = sqlite_datareader.GetString(1);
+
+                CheetSheetItem item = null;
+                if (sqlite_datareader[2] != DBNull.Value)
+                {
+                    var itemId = sqlite_datareader.GetString(2);
+
+                    if (cheatSheetItems.Where(i => i.id == itemId).Count() > 0)
+                    {
+                        item = cheatSheetItems.Where(i => i.id == itemId).First();
+                    } else
+                    {
+                        var itemName = sqlite_datareader.GetString(3);
+                        var itemCode = sqlite_datareader.GetString(4);
+                        var aditionInfo = sqlite_datareader.GetString(5);
+
+                        item = new CheetSheetItem
+                        {
+                            id = itemId,
+                            name = itemName,
+                            codeSnippet = itemCode,
+                            additionalInfo = aditionInfo
+                        };
+                        cheatSheetItems.AddLast(item);
+                    }
+                    
+                    UsefulLink link = null;
+                    if (sqlite_datareader[6] != DBNull.Value)
+                    {
+                        var linkId = sqlite_datareader.GetString(6);
+                        var address = sqlite_datareader.GetString(7);
+                        var order = sqlite_datareader.GetInt32(8);
+                        link = new UsefulLink
+                        {
+                            id = linkId,
+                            linkAddress = address,
+                            linkOrder = order
+                        };
+                        item.usefulLinks.Add(link);
+                    }
+                }
+
+                if (topic == null)
+                {
+                    topic = new Topic
+                    {
+                        id = topicId,
+                        name = topicName
+                    };
+                }
+                if(item != null)
+                {
+                    if (!topic.cheetSheetItems.Contains(item))
+                    {
+                        topic.cheetSheetItems.Add(item);
+                    }
+                }
+                
+            }
+            return topic;
         }
 
         public static void UpdateNameById(string id, string name)

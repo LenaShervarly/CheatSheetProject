@@ -15,6 +15,7 @@ namespace CheatSheetProject.Models
 
         public CheetSheetItem()
         {
+            usefulLinks = new List<UsefulLink>();
         }
     }
 }

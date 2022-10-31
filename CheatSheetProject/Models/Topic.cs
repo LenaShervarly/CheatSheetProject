@@ -12,6 +12,7 @@ namespace CheatSheetProject.Models
 
         public Topic()
         {
+            cheetSheetItems = new List<CheetSheetItem>();
         }
     }
 }

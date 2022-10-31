@@ -41,17 +41,11 @@ namespace CheatSheetProject.Repositories
             return sqlite_cmd.ExecuteReader();
         }
 
-        public static SQLiteConnection GetSQLiteConnection()
+        public static SQLiteDataReader ReadCusomData(string customSelectStatement)
         {
-            if(conn == null)
-            {
-                conn = SqliteConnect.CreateConnection();
-            }
-            if(conn.State == System.Data.ConnectionState.Closed)
-            {
-                conn.Open();
-            }
-            return conn;
+            SQLiteCommand sQLiteCommand = GetSQLiteConnection().CreateCommand();
+            sQLiteCommand.CommandText = customSelectStatement;
+            return sQLiteCommand.ExecuteReader();
         }
 
         public static void UpdatetData(string tableName, string setValues, string clause)
@@ -66,6 +60,19 @@ namespace CheatSheetProject.Repositories
             SQLiteCommand sqlite_cmd = GetSQLiteConnection().CreateCommand();
             sqlite_cmd.CommandText = $"DELETE from {tableName} WHERE {clause}; ";
             sqlite_cmd.ExecuteNonQuery();
+        }
+
+        public static SQLiteConnection GetSQLiteConnection()
+        {
+            if (conn == null)
+            {
+                conn = SqliteConnect.CreateConnection();
+            }
+            if (conn.State == System.Data.ConnectionState.Closed)
+            {
+                conn.Open();
+            }
+            return conn;
         }
 
         public static void CloseConnections(SQLiteDataReader sqlite_datareader)

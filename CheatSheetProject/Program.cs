@@ -53,7 +53,7 @@ CheatSheetProject.Repositories.CheatSheetItemRepository.DeleteItemById("5fe89220
 var item = CheatSheetProject.Repositories.CheatSheetItemRepository.GetItem("d3e859c4-d636-48c6-8d72-666be7694b6f");
 var allItems = CheatSheetProject.Repositories.CheatSheetItemRepository.GetAllItems();
 var itemsByTopic = CheatSheetProject.Repositories.CheatSheetItemRepository.GetAllItemsByTopicId("1cb29e2a-9cfe-46ae-a14e-7a2fcb4bcf54");
-*/
+
 // CheatSheetProject.Repositories.Migrations.run();
 var usefulLink = new CheatSheetProject.Models.UsefulLink()
 {
@@ -67,6 +67,8 @@ CheatSheetProject.Repositories.UsefulLinksRepository.DeleteLinkById("ca19b394-27
 var allLinks = CheatSheetProject.Repositories.UsefulLinksRepository.GetAllLinks();
 var link = CheatSheetProject.Repositories.UsefulLinksRepository.GetItem("ee2f4e3c-d7f0-4141-ad91-0fad6a0328bd");
 var byItem = CheatSheetProject.Repositories.UsefulLinksRepository.GetAllUsefulLinksByItemId("22aa995c-d379-44be-a60a-ddb768e7f9f9");
+*/
+var topicWithAllData = CheatSheetProject.Repositories.TopicRepository.GetTopicWithAllItems("1cb29e2a-9cfe-46ae-a14e-7a2fcb4bcf54");
 app.Run();
 
 
