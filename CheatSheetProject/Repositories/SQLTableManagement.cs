@@ -12,10 +12,10 @@ namespace CheatSheetProject.Repositories
         
         }
 
-        public static void CreateTable(string Createsql)
+        public static void ExecuteSQL(string sqlStatement)
         {
             SQLiteCommand sqlite_cmd = GetSQLiteConnection().CreateCommand();
-            sqlite_cmd.CommandText = Createsql;
+            sqlite_cmd.CommandText = sqlStatement;
             sqlite_cmd.ExecuteNonQuery();
         }
 
