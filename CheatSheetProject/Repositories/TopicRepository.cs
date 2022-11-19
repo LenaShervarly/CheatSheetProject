@@ -66,13 +66,13 @@ namespace CheatSheetProject.Repositories
                 $"WHERE Topic.Id = \"{id}\";";
             var sqlite_datareader = SQLTableManagement.ReadCusomData(statement);
             Topic topic = null;
-            var cheatSheetItems = new LinkedList<CheetSheetItem>();
+            var cheatSheetItems = new LinkedList<CheatSheetItem>();
             while (sqlite_datareader.Read())
             {
                 var topicId = sqlite_datareader.GetString(0);
                 var topicName = sqlite_datareader.GetString(1);
 
-                CheetSheetItem item = null;
+                CheatSheetItem item = null;
                 if (sqlite_datareader[2] != DBNull.Value)
                 {
                     var itemId = sqlite_datareader.GetString(2);
@@ -86,7 +86,7 @@ namespace CheatSheetProject.Repositories
                         var itemCode = sqlite_datareader.GetString(4);
                         var aditionInfo = sqlite_datareader.GetString(5);
 
-                        item = new CheetSheetItem
+                        item = new CheatSheetItem
                         {
                             id = itemId,
                             name = itemName,

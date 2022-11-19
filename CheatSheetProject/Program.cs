@@ -25,9 +25,9 @@ app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
 
-//If you're running migrations for the first time, please comment all "Drop tables" rows before starting the application
-CheatSheetProject.Repositories.Migrations.run();
-var topicWithAllData = CheatSheetProject.Repositories.TopicRepository.GetTopicWithAllItems("1cb29e2a-9cfe-46ae-a14e-7a2fcb4bcf54");
+//If you're running migrations for the first time, please uncomment the following line
+//CheatSheetProject.Repositories.Migrations.run();
+
 app.Run();
 
 
