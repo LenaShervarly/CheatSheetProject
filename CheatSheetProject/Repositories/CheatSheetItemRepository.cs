@@ -12,7 +12,15 @@ namespace CheatSheetProject.Repositories
 
         public static void AddNewCheatSheetItem(CheatSheetItem cheatSheetItem, string? topicId)
         {
-            var id = Guid.NewGuid();
+            string id;
+            if(cheatSheetItem.id == null)
+            {
+                id = Guid.NewGuid().ToString();
+            } else
+            {
+                id = cheatSheetItem.id;
+            }
+      
             SQLTableManagement.InsertData(cheatSheetItemTable, "Id, Name, CodeSnippet, AdditionalInfo, TopicId",
                 $"\"{id}\", \"{cheatSheetItem.name}\", \"{cheatSheetItem.codeSnippet}\", \"{cheatSheetItem.additionalInfo}\", \"{topicId}\"");
         }

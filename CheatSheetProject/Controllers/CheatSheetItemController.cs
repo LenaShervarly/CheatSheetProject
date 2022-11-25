@@ -19,7 +19,13 @@ namespace CheatSheetProject.Controllers
         [HttpGet("{id}")]
         public CheatSheetItem? GetCheatSheetItem(string id)
         {
-            return CheatSheetItemRepository.GetItem(id);
+            var cheatSheetItem =  CheatSheetItemRepository.GetItem(id);
+            if (cheatSheetItem != null)
+            {
+                var usefulLinks = UsefulLinksRepository.GetAllUsefulLinksByItemId(id);
+                cheatSheetItem.usefulLinks = usefulLinks;
+            }
+            return cheatSheetItem;
         }
 
         [HttpGet]
@@ -37,6 +43,7 @@ namespace CheatSheetProject.Controllers
         [HttpDelete("{id}")]
         public void DeleteItem(string id)
         {
+            UsefulLinksRepository.DeleteByCheatSheetItemId(id);
             CheatSheetItemRepository.DeleteItemById(id);
         }
 
@@ -51,6 +58,11 @@ namespace CheatSheetProject.Controllers
         public void CreateNewItem([FromBody] CheatSheetItem cheatSheetItem, [FromQuery] string? topicId)
         {
             CheatSheetItemRepository.AddNewCheatSheetItem(cheatSheetItem, topicId);
+            foreach(UsefulLink usefulLink in cheatSheetItem.usefulLinks)
+            {
+                UsefulLinksRepository.AddUsefulLink(usefulLink, cheatSheetItem.id);
+            }
+            
         }
     }
 }
