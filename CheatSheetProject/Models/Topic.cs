@@ -12,6 +12,8 @@ namespace CheatSheetProject.Models
 
         public DateTime dateCreated { get; set; }
 
+        public int orderNumber { get; set; }
+
         public Topic()
         {
             cheetSheetItems = new List<CheatSheetItem>();
