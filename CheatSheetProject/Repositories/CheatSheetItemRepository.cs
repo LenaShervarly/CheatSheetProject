@@ -10,9 +10,17 @@ namespace CheatSheetProject.Repositories
         {
         }
 
-        public static void AddNewCheatSheetItem(CheetSheetItem cheatSheetItem, string? topicId)
+        public static void AddNewCheatSheetItem(CheatSheetItem cheatSheetItem, string? topicId)
         {
-            var id = Guid.NewGuid();
+            string id;
+            if(cheatSheetItem.id == null)
+            {
+                id = Guid.NewGuid().ToString();
+            } else
+            {
+                id = cheatSheetItem.id;
+            }
+      
             SQLTableManagement.InsertData(cheatSheetItemTable, "Id, Name, CodeSnippet, AdditionalInfo, TopicId",
                 $"\"{id}\", \"{cheatSheetItem.name}\", \"{cheatSheetItem.codeSnippet}\", \"{cheatSheetItem.additionalInfo}\", \"{topicId}\"");
         }
@@ -24,9 +32,9 @@ namespace CheatSheetProject.Repositories
         }
 
 
-        public static void UpdateItemById(string id, CheetSheetItem cheatSheetItem)
+        public static void UpdateItemById(string id, CheatSheetItem cheatSheetItem)
         {
-            var whereClause = $"id = \"{id}\"";
+            var whereClause = $"id = \'{id}\'";
             var setClause = "";
             if(cheatSheetItem.name != null)
             {
@@ -38,9 +46,9 @@ namespace CheatSheetProject.Repositories
             SQLTableManagement.UpdatetData(cheatSheetItemTable, setClause, whereClause);
         }
 
-        public static List<CheetSheetItem> GetAllItems()
+        public static List<CheatSheetItem> GetAllItems()
         {
-            var allCheatSheetItems = new List<CheetSheetItem>();
+            var allCheatSheetItems = new List<CheatSheetItem>();
 
             var sqlite_datareader = SQLTableManagement.ReadData(cheatSheetItemTable, null);
             while (sqlite_datareader.Read())
@@ -49,7 +57,7 @@ namespace CheatSheetProject.Repositories
                 string name = sqlite_datareader.GetString(1);
                 string codeSnippet = sqlite_datareader.GetString(2);
                 string additionalInfo = sqlite_datareader.GetString(3);
-                allCheatSheetItems.Add(new CheetSheetItem
+                allCheatSheetItems.Add(new CheatSheetItem
                 {
                     id = id,
                     name = name,
@@ -61,7 +69,7 @@ namespace CheatSheetProject.Repositories
             return allCheatSheetItems;
         }
 
-        public static CheetSheetItem? GetItem(string id)
+        public static CheatSheetItem? GetItem(string id)
         {
             var clause = $"id = \"{id}\"";
             var sqlite_datareader = SQLTableManagement.ReadData(cheatSheetItemTable, clause);
@@ -71,7 +79,7 @@ namespace CheatSheetProject.Repositories
                 string codeSnippet = sqlite_datareader.GetString(2);
                 string additionalInfo = sqlite_datareader.GetString(3);
                 SQLTableManagement.CloseConnections(sqlite_datareader);
-                return new CheetSheetItem
+                return new CheatSheetItem
                 {
                     id = id,
                     name = name,
@@ -84,9 +92,9 @@ namespace CheatSheetProject.Repositories
             return null;
         }
 
-        public static List<CheetSheetItem> GetAllItemsByTopicId(string topicId)
+        public static List<CheatSheetItem> GetAllItemsByTopicId(string topicId)
         {
-            var allCheatSheetItemsForTopic = new List<CheetSheetItem>();
+            var allCheatSheetItemsForTopic = new List<CheatSheetItem>();
             var clause = $"TopicId = \"{topicId}\"";
             var sqlite_datareader = SQLTableManagement.ReadData(cheatSheetItemTable, clause);
             while (sqlite_datareader.Read())
@@ -95,7 +103,7 @@ namespace CheatSheetProject.Repositories
                 string name = sqlite_datareader.GetString(1);
                 string codeSnippet = sqlite_datareader.GetString(2);
                 string additionalInfo = sqlite_datareader.GetString(3);
-                allCheatSheetItemsForTopic.Add(new CheetSheetItem
+                allCheatSheetItemsForTopic.Add(new CheatSheetItem
                 {
                     id = id,
                     name = name,

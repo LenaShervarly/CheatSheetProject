@@ -1,7 +1,7 @@
 ﻿using System;
 namespace CheatSheetProject.Models
 {
-    public class CheetSheetItem
+    public class CheatSheetItem
     {
         public string id { get; set; }
 
@@ -13,7 +13,7 @@ namespace CheatSheetProject.Models
 
         public List<UsefulLink> usefulLinks { get; set; }
 
-        public CheetSheetItem()
+        public CheatSheetItem()
         {
             usefulLinks = new List<UsefulLink>();
         }

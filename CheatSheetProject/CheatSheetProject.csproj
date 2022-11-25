@@ -9,9 +9,13 @@
   <ItemGroup>
     <None Remove="System.Data.SQLite" />
     <None Remove="Repositories\" />
+    <None Remove="Microsoft.VisualStudio.Web.CodeGeneration.Design" />
+    <None Remove="Swashbuckle.AspNetCore" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="System.Data.SQLite" Version="1.0.116" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="6.0.10" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.3.0" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Repositories\" />

@@ -109,6 +109,12 @@ namespace CheatSheetProject.Repositories
             SQLTableManagement.CloseConnections(sqlite_datareader);
             return linksByItem;
         }
+
+        public static void DeleteByCheatSheetItemId(string cheatSheetItemId)
+        {
+            var clause = $"cheatSheetItemId = \"{cheatSheetItemId}\"";
+            SQLTableManagement.DeletetData(usefulLinkTable, clause);
+        }
     }
 }
 

@@ -8,11 +8,11 @@ namespace CheatSheetProject.Models
 
         public string name { get; set; }
 
-        public List<CheetSheetItem> cheetSheetItems { get; set; }
+        public List<CheatSheetItem> cheetSheetItems { get; set; }
 
         public Topic()
         {
-            cheetSheetItems = new List<CheetSheetItem>();
+            cheetSheetItems = new List<CheatSheetItem>();
         }
     }
 }
