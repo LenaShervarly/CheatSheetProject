@@ -10,6 +10,8 @@ namespace CheatSheetProject.Models
 
         public List<CheatSheetItem> cheetSheetItems { get; set; }
 
+        public DateTime dateCreated { get; set; }
+
         public Topic()
         {
             cheetSheetItems = new List<CheatSheetItem>();
