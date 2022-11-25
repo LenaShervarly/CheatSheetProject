@@ -10,8 +10,6 @@ namespace CheatSheetProject.Models
 
         public List<CheetSheetItem> cheetSheetItems { get; set; }
 
-        public int orderNumber { get; set; }
-
         public Topic()
         {
             cheetSheetItems = new List<CheetSheetItem>();

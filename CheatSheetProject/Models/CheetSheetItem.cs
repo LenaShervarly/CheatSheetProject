@@ -13,9 +13,6 @@ namespace CheatSheetProject.Models
 
         public List<UsefulLink> usefulLinks { get; set; }
 
-        public int orderNumber { get; set; }
-
-
         public CheetSheetItem()
         {
             usefulLinks = new List<UsefulLink>();
