@@ -12,6 +12,8 @@ namespace CheatSheetProject.Models
 
         public string cheatSheetItemId { get; set; }
 
+        public DateTime dateCreated { get; set; }
+
         public UsefulLink()
         {
         }

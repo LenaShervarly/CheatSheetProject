@@ -13,7 +13,9 @@ namespace CheatSheetProject.Models
 
         public List<UsefulLink> usefulLinks { get; set; }
 
-        public CheatSheetItem()
+        public DateTime dateCreated { get; set; }
+
+        public CheetSheetItem()
         {
             usefulLinks = new List<UsefulLink>();
         }
